@@ -1,0 +1,42 @@
+:host {
+  flex-grow: 1;
+
+  .chat-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    border-radius: 16px;
+    padding: 1rem;
+    background-color: var(--bs-secondary-bg);
+    height: 100%;
+
+    .input-wrapper {
+      margin-top: auto;
+      display: flex;
+      flex-flow: row nowrap;
+      width: 100%;
+      gap: 16px;
+      align-self: flex-end;
+
+      .prompt-input {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        background-color: var(--bs-tertiary-bg);
+        border-radius: 16px;
+        border: none;
+      }
+
+      .send-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+
+        font-size: 24px;
+        line-height: 0.7rem;
+      }
+    }
+  }
+}

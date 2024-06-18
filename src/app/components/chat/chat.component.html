@@ -1,0 +1,10 @@
+<div class="chat-wrapper">
+  <h3>Chat</h3>
+  <div class="response-field"> {{ response }}</div>
+  <div class="input-wrapper">
+    <textarea placeholder="Digite..." class="prompt-input" [(ngModel)]="prompt" type="text" rows="1"></textarea>
+    <button class="btn btn-primary send-button" (click)="sendPrompt()">
+      <i class="bi bi-send-fill"></i>
+    </button>
+  </div>
+</div>

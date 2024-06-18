@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons.min.css';
+
+body {
+  --bs-body-bg: #11121C;
+  --bs-body-bg-rgb: rgb(17, 18, 28);
+  --bs-secondary-bg: #242836;
+  --bs-secondary-bg-rgb: rgb(36, 40, 54);
+  --bs-tertiary-bg: #474a5c;
+  --bs-tertiary-bg-rgb: rgb(51, 53, 66);
+
+  height: 100vh;
+  width: 100vw;
+
+  & app-root{
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+}

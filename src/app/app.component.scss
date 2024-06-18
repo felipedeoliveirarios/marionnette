@@ -1,0 +1,12 @@
+:host {
+  .body-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    gap: 24px;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+  }
+}
