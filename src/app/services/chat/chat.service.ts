@@ -50,4 +50,11 @@ export class ChatService {
   saveCurrentChat() {
     this.localStorageService.setItem(this.currentChat.id, this.currentChat);
   }
+
+  clearChatHistory() {
+    this.savedChatKeys = [];
+    this.localStorageService.setItem(this.chatKeysKey, this.savedChatKeys);
+    this.persistedChatOptions = [];
+    this.currentChat = new Chat();
+  }
 }
