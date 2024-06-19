@@ -27,7 +27,7 @@ export class ChatService {
 
     this.savedChatKeys.forEach(chatKey => {
       const chat = this.localStorageService.getItem(chatKey) as Chat;
-      this.persistedChatOptions.push({label: chat.messages[0]?.content.slice(0, 32) || chatKey, value: chatKey});
+      this.persistedChatOptions.push({label: chat?.messages[0]?.content.slice(0, 32) || chatKey, value: chatKey});
     });
   }
 
