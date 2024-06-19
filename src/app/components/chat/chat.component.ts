@@ -6,7 +6,8 @@ import {ChatService} from "../../services/chat/chat.service";
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
+  preserveWhitespaces: true,
 })
 export class ChatComponent {
   prompt: string = '';
