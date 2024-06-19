@@ -1,4 +1,5 @@
 export class Chat {
+  id: string =  'chat_' + new Date().valueOf();
   messages: Message[] = [];
   model: string = '';
   stream: boolean = false;

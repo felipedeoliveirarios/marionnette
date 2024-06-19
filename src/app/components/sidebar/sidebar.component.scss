@@ -1,4 +1,32 @@
-:host{
+:host {
   background-color: var(--bs-secondary-bg);
   border-radius: 16px;
+
+  .chat-options {
+    gap: 4px;
+    padding-bottom: 8px;
+
+    .chat-option {
+      max-width: 100%;
+
+      .nav-link {
+        display: block;
+        border-radius: 16px;
+
+        background-color: var(--bs-tertiary-bg);
+        color: var(--bs-light);
+        cursor: pointer;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        transition: all 0.5s;
+
+        &:hover {
+          filter: brightness(1.1);
+        }
+      }
+    }
+  }
 }

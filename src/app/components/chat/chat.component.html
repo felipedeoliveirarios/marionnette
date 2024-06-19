@@ -1,13 +1,13 @@
 <div class="chat-wrapper">
   <h3>ChatGPT 4</h3>
   <div class="chat-messages-wrapper">
-    <div *ngFor="let message of messages"
+    <div *ngFor="let message of messageHistory"
          class="chat-message"
          [class]="message.role + '-message'">
       <div class="message-body">{{ message.content }}</div>
     </div>
     <div class="messages-placeholder"
-         *ngIf="messages.length == 0">
+         *ngIf="!(messageHistory.length > 0)">
       Envie uma mensagem para iniciar a conversa.
     </div>
   </div>

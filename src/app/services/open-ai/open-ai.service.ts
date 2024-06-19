@@ -13,16 +13,14 @@ export class OpenAiService {
 
   constructor(private http: HttpClient){ }
 
-  sendChat(messages: Message[], model: string) : Observable<ChatCompletion> {
+  sendChat(messages: Message[], chat: Chat) : Observable<ChatCompletion> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${environment.openai_api_key}`
     });
 
-    const chat = new Chat();
-    chat.model = model;
-    chat.messages = messages;
+    const chatData = JSON.stringify(chat, (key, value) => {return (key === 'id')? undefined: value;})
 
-    return this.http.post<ChatCompletion>(this.apiUrl, chat, { headers: headers});
+    return this.http.post<ChatCompletion>(this.apiUrl, chatData, { headers: headers});
   }
 }
