@@ -1,0 +1,27 @@
+<div class="chat-wrapper">
+  <h3>ChatGPT 4</h3>
+  <div class="chat-messages-wrapper">
+    <div *ngFor="let message of messages"
+         class="chat-message"
+         [class]="message.role + '-message'">
+      <div class="message-body">{{ message.content }}</div>
+    </div>
+    <div class="messages-placeholder"
+         *ngIf="messages.length == 0">
+      Envie uma mensagem para iniciar a conversa.
+    </div>
+  </div>
+  <div class="input-wrapper">
+    <textarea class="prompt-input"
+              type="text"
+              placeholder="Digite..."
+              rows="1"
+              style="resize: none;"
+              [(ngModel)]="prompt"
+              [disabled]="loading">
+    </textarea>
+    <button class="btn btn-primary send-button" (click)="sendPrompt()" [disabled]="loading">
+      <i class="bi bi-send-fill"></i>
+    </button>
+  </div>
+</div>
