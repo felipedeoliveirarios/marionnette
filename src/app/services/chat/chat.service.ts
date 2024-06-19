@@ -52,6 +52,10 @@ export class ChatService {
   }
 
   clearChatHistory() {
+    for (const chatKey of this.savedChatKeys) {
+      this.localStorageService.removeItem(chatKey);
+    }
+
     this.savedChatKeys = [];
     this.localStorageService.setItem(this.chatKeysKey, this.savedChatKeys);
     this.persistedChatOptions = [];
