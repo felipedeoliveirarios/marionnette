@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import {OpenAiService} from "../../services/open-ai/open-ai.service";
 import {ChatCompletion, Message} from "./chat";
 import {ChatService} from "../../services/chat/chat.service";
-import {MarkdownService} from "ngx-markdown";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
+  preserveWhitespaces: true,
 })
 export class ChatComponent {
   prompt: string = '';
@@ -25,8 +25,7 @@ export class ChatComponent {
   }
 
   constructor(private openAiService: OpenAiService,
-              protected chatService: ChatService,
-              private markdownService: MarkdownService) {
+              protected chatService: ChatService) {
   }
 
   sendPrompt() {
@@ -46,6 +45,7 @@ export class ChatComponent {
       this.messageHistory.push(data.choices[0].message);
       this.loading = false;
       this.chatService.saveCurrentChat();
+      this.prompt = '';
     }, error => {
       console.error('Error fetching data: ', error);
     });

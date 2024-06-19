@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {ChatService} from "../../services/chat/chat.service";
 
 @Component({
@@ -21,5 +21,9 @@ export class SidebarComponent {
 
   selectChat(chatKey: string) {
     this.chatService.selectChat(chatKey);
+  }
+
+  clearChatHistory() {
+    this.chatService.clearChatHistory();
   }
 }

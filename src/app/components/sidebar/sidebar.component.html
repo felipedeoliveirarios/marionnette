@@ -1,30 +1,20 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white" style="width: 280px">
+<div class="sidebar-wrapper" style="width: 280px">
   <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <span class="fs-4">Conversas</span>
   </a>
   <hr>
-  <ul class="nav nav-pills flex-column mb-auto chat-options">
-    <li *ngFor="let chatOption of chatOptions" class="chat-option nav-item">
-      <a (click)="selectChat(chatOption.value)" class="nav-link" [class]="{active: chatOption.value === chatService.currentChat.id}">{{chatOption.label}}</a>
-    </li>
-    <li *ngIf="chatOptions.length === 0">Nenhuma conversa ainda</li>
-  </ul>
-  <b class="btn btn-success" (click)="createNewChat()">Nova Conversa</b>
-  <hr>
-  <div class="dropdown">
-    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
-       data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-      <strong>mdo</strong>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-      <li><a class="dropdown-item" href="#">New project...</a></li>
-      <li><a class="dropdown-item" href="#">Settings</a></li>
-      <li><a class="dropdown-item" href="#">Profile</a></li>
-      <li>
-        <hr class="dropdown-divider">
+  <div class="chat-options-wrapper">
+    <ul class="nav nav-pills flex-column mb-auto chat-options">
+      <li *ngFor="let chatOption of chatOptions" class="chat-option nav-item">
+        <a (click)="selectChat(chatOption.value)" class="nav-link"
+           [class]="{active: chatOption.value === chatService.currentChat.id}">{{ chatOption.label }}</a>
       </li>
-      <li><a class="dropdown-item" href="#">Sign out</a></li>
+      <li *ngIf="chatOptions.length === 0" class="no-chats-message">Nenhuma conversa no histórico</li>
     </ul>
+  </div>
+  <hr>
+  <div class="d-flex flex-column gap-2 history-btn-wrapper">
+    <b class="btn btn-success" (click)="createNewChat()">Nova Conversa</b>
+    <b class="btn btn-danger" (click)="clearChatHistory()">Limpar Histórico</b>
   </div>
 </div>
