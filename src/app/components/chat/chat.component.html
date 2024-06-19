@@ -4,7 +4,7 @@
     <div *ngFor="let message of messageHistory"
          class="chat-message"
          [class]="message.role + '-message'">
-      <div class="message-body">{{ message.content }}</div>
+      <div markdown [data] = "message.content" class="message-body"></div>
     </div>
     <div class="messages-placeholder"
          *ngIf="!(messageHistory.length > 0)">

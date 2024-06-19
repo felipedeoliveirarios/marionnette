@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {OpenAiService} from "../../services/open-ai/open-ai.service";
 import {ChatCompletion, Message} from "./chat";
 import {ChatService} from "../../services/chat/chat.service";
+import {MarkdownService} from "ngx-markdown";
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +25,8 @@ export class ChatComponent {
   }
 
   constructor(private openAiService: OpenAiService,
-              protected chatService: ChatService) {
+              protected chatService: ChatService,
+              private markdownService: MarkdownService) {
   }
 
   sendPrompt() {
