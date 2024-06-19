@@ -19,6 +19,7 @@
       overflow-y: auto;
       gap: 16px;
       padding: 1rem;
+      margin-bottom: 1rem;
 
       .chat-message {
         display: flex;
@@ -26,9 +27,23 @@
         width: 100%;
 
         .message-body {
-          max-width: 60%;
+          max-width: 75%;
           border-radius: 16px;
           padding: 0.5rem 1rem;
+
+          &::ng-deep {
+            & > pre {
+              background-color: rgba(33, 37, 41, 0.5);
+              padding: 0.5rem;
+              border-radius: var(--bs-border-radius)
+            }
+
+            & > p code {
+              padding: 0.25rem;
+              background-color: rgba(33, 37, 41, 0.5);
+              border-radius: var(--bs-border-radius)
+            }
+          }
         }
       }
 
@@ -37,7 +52,7 @@
 
         .message-body {
           border-bottom-right-radius: 0;
-          background-color: var(--bs-primary);
+          background-color: #290661;
         }
       }
 
@@ -45,8 +60,8 @@
         justify-content: flex-start;
 
         .message-body {
-          border-bottom-left-radius: 0;
-          background-color: var(--bs-secondary);
+          border-top-left-radius: 0;
+          background-color: #084298;
         }
       }
 
