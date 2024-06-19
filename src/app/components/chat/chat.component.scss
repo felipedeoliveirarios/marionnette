@@ -11,6 +11,29 @@
     padding: 16px;
     flex-grow: 0;
 
+    .dropdown {
+      .model-dropdown {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+
+        &:active, &.show {
+          outline: none;
+          border-color: transparent;
+          background-color: var(--bs-tertiary-bg);
+        }
+
+        h5 {
+          margin-bottom: 0;
+        }
+
+        &:after {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
     .chat-messages-wrapper {
       display: flex;
       flex-flow: column nowrap;

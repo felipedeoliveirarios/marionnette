@@ -14,7 +14,7 @@ export class ChatComponent {
 
   loading: boolean = false;
 
-  selectedModel = 'gpt-3.5-turbo';
+  selectedModel = this.modelOptions[0];
 
   get messageHistory() {
     return this.chatService.currentChat.messages;
@@ -22,6 +22,10 @@ export class ChatComponent {
 
   get currentChat() {
     return this.chatService.currentChat;
+  }
+
+  get modelOptions() {
+    return this.openAiService.modelOptions;
   }
 
   constructor(private openAiService: OpenAiService,
@@ -37,7 +41,7 @@ export class ChatComponent {
       this.chatService.saveNewChatKey();
     }
 
-    this.currentChat.model = this.selectedModel;
+    this.currentChat.model = this.selectedModel.value;
     this.messageHistory.push(userMessage);
 
     this.loading = true;
