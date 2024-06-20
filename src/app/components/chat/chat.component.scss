@@ -1,6 +1,5 @@
 :host {
-  flex-grow: 1;
-  max-height: 86.4vh;
+  width: 100%;
 
   .chat-wrapper {
     display: flex;
@@ -138,5 +137,16 @@
         border-color: var(--bs-primary)
       }
     }
+  }
+
+  .scroll-shadows {
+    background: linear-gradient(#242836 33%, rgba(36, 40, 54, 0)),
+    linear-gradient(rgba(36, 40, 54, 0), #242836 66%) 0 100%,
+    radial-gradient(farthest-side at 50% 0, rgba(71, 74, 92, 0.5), rgba(0, 0, 0, 0)),
+    radial-gradient(farthest-side at 50% 100%, rgba(71, 74, 92, 0.5), rgba(0, 0, 0, 0)) 0 100%;
+    background-color: #242836;
+    background-repeat: no-repeat;
+    background-attachment: local, local, scroll, scroll;
+    background-size: 100% 150px, 100% 150px, 100% 50px, 100% 50px;
   }
 }
