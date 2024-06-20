@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {OpenAiService} from "../../services/open-ai/open-ai.service";
 import {ChatCompletion, Message} from "./chat";
 import {ChatService} from "../../services/chat/chat.service";
@@ -15,6 +15,9 @@ export class ChatComponent {
   loading: boolean = false;
 
   selectedModel = this.modelOptions[0];
+
+  @ViewChild('scroll', {static: true})
+  scroll: any;
 
   get messageHistory() {
     return this.chatService.currentChat.messages;
@@ -43,6 +46,7 @@ export class ChatComponent {
 
     this.currentChat.model = this.selectedModel.value;
     this.messageHistory.push(userMessage);
+    this.scrollToBottom();
 
     this.loading = true;
     this.openAiService.sendChat(this.messageHistory, this.currentChat).subscribe((data: ChatCompletion) => {
@@ -50,8 +54,19 @@ export class ChatComponent {
       this.loading = false;
       this.chatService.saveCurrentChat();
       this.prompt = '';
+      this.scrollToBottom();
     }, error => {
       console.error('Error fetching data: ', error);
     });
+  }
+
+  scrollToBottom(): void {
+    setTimeout(() => {
+      this.scroll.nativeElement.scrollTo({
+        left: 0,
+        top: this.scroll.nativeElement.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 10);
   }
 }

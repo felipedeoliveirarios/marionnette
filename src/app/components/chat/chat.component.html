@@ -13,13 +13,22 @@
       </li>
     </ul>
   </div>
-  <div class="chat-messages-wrapper scroll-shadows">
+  <div #scroll class="chat-messages-wrapper scroll-shadows">
     <div *ngFor="let message of messageHistory"
          class="chat-message"
          [class]="message.role + '-message'">
       <div class="message-body"
            markdown
            [data]="message.content"></div>
+    </div>
+    <div *ngIf="loading" class="chat-message assistant-message loading-message">
+      <div class="message-body">
+        <div class="loader">
+          <li class="ball"></li>
+          <li class="ball"></li>
+          <li class="ball"></li>
+        </div>
+      </div>
     </div>
     <div class="messages-placeholder"
          *ngIf="!(messageHistory.length > 0)">
