@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Chat} from "../../components/chat/chat";
 import {LocalStorageService} from "../local-storage/local-storage.service";
 
@@ -11,6 +11,8 @@ export class ChatService {
   currentChat: Chat = new Chat();
   savedChatKeys: string[] = [];
   persistedChatOptions: {label: string, value: string}[] = [];
+
+  chatChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private localStorageService: LocalStorageService) {
     this.initializeChats();
@@ -34,6 +36,7 @@ export class ChatService {
   selectChat(chatKey: string) {
     if (this.savedChatKeys.includes(chatKey)) {
       this.currentChat = this.localStorageService.getItem(chatKey) as Chat;
+      this.chatChanged.emit();
     }
   }
 

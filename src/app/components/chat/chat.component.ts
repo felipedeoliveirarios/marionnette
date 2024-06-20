@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {OpenAiService} from "../../services/open-ai/open-ai.service";
 import {ChatCompletion, Message} from "./chat";
 import {ChatService} from "../../services/chat/chat.service";
@@ -9,7 +9,7 @@ import {ChatService} from "../../services/chat/chat.service";
   styleUrl: './chat.component.scss',
   preserveWhitespaces: true,
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit{
   prompt: string = '';
 
   loading: boolean = false;
@@ -33,6 +33,13 @@ export class ChatComponent {
 
   constructor(private openAiService: OpenAiService,
               protected chatService: ChatService) {
+  }
+
+  ngOnInit() {
+    this.chatService.chatChanged.subscribe(() => {
+      this.scrollToBottom();
+      this.prompt = '';
+    });
   }
 
   sendPrompt() {
