@@ -14,13 +14,15 @@
     </ul>
   </div>
   <div #scroll class="chat-messages-wrapper scroll-shadows">
-    <div *ngFor="let message of messageHistory"
-         class="chat-message"
-         [class]="message.role + '-message'">
-      <div class="message-body"
-           markdown
-           [data]="message.content"></div>
-    </div>
+    <ng-container *ngFor="let message of messageHistory">
+      <div *ngIf="message.role  === 'user' || message.role === 'assistant'"
+        class="chat-message"
+        [class]="message.role + '-message'">
+        <div class="message-body"
+             markdown
+             [data]="message.content.match(titleRegex) ? message.content.substring(message.content.indexOf('\n') + 1) : message.content"></div>
+      </div>
+    </ng-container>
     <div *ngIf="loading" class="chat-message assistant-message loading-message">
       <div class="message-body">
         <div class="loader">

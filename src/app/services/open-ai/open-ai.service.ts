@@ -14,12 +14,21 @@ export class OpenAiService {
     {value: 'gpt-4o', label: 'GPT 4o'}
   ];
 
+  systemMessage = 'You are a helpful assistant. Start your answer by generating a title based on the user message send it on the first line between << >> symbols and add a line break after. After that, answer normally.'
+
   private apiUrl = 'https://api.openai.com/v1/chat/completions';
 
   constructor(private http: HttpClient) {
   }
 
-  sendChat(messages: Message[], chat: Chat): Observable<ChatCompletion> {
+  sendChat(chat: Chat): Observable<ChatCompletion> {
+    if(chat.messages.length <= 1) {
+      const systemMessage = new Message();
+      systemMessage.role = 'system';
+      systemMessage.content = this.systemMessage;
+      chat.messages.unshift(systemMessage);
+    }
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${environment.openai_api_key}`

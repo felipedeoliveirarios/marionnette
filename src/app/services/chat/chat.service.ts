@@ -14,6 +14,8 @@ export class ChatService {
 
   chatChanged: EventEmitter<any> = new EventEmitter<any>();
 
+  titleRegex = new RegExp('<<\s?(.+)\s?>>');
+
   constructor(private localStorageService: LocalStorageService) {
     this.initializeChats();
   }
@@ -22,14 +24,18 @@ export class ChatService {
     this.savedChatKeys = this.localStorageService.getItem(this.chatKeysKey);
 
     if (!this.savedChatKeys) {
-      console.log('No chat keys found');
       this.localStorageService.setItem(this.chatKeysKey, []);
       this.savedChatKeys = [];
     }
 
     this.savedChatKeys.forEach(chatKey => {
       const chat = this.localStorageService.getItem(chatKey) as Chat;
-      this.persistedChatOptions.push({label: chat?.messages[0]?.content.slice(0, 32) || chatKey, value: chatKey});
+      const filteredAssistantMessages = chat.messages.filter(message => message.role === 'assistant' && this.titleRegex.test(message.content));
+      const match = this.titleRegex.exec(filteredAssistantMessages[filteredAssistantMessages.length - 1].content);
+
+      const chatTitle = match ? match[1] : chatKey;
+
+      this.persistedChatOptions.push({label: chatTitle, value: chatKey});
     });
   }
 

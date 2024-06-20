@@ -31,6 +31,10 @@ export class ChatComponent implements OnInit{
     return this.openAiService.modelOptions;
   }
 
+  get titleRegex() {
+    return this.chatService.titleRegex;
+  }
+
   constructor(private openAiService: OpenAiService,
               protected chatService: ChatService) {
   }
@@ -56,7 +60,7 @@ export class ChatComponent implements OnInit{
     this.scrollToBottom();
 
     this.loading = true;
-    this.openAiService.sendChat(this.messageHistory, this.currentChat).subscribe((data: ChatCompletion) => {
+    this.openAiService.sendChat(this.currentChat).subscribe((data: ChatCompletion) => {
       this.messageHistory.push(data.choices[0].message);
       this.loading = false;
       this.chatService.saveCurrentChat();
