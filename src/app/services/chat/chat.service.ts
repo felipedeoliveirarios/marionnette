@@ -10,7 +10,7 @@ export class ChatService {
 
   currentChat: Chat = new Chat();
   savedChatKeys: string[] = [];
-  persistedChatOptions: {label: string, value: string}[] = [];
+  persistedChatOptions: { label: string, value: string }[] = [];
 
   chatChanged: EventEmitter<any> = new EventEmitter<any>();
 
@@ -30,12 +30,9 @@ export class ChatService {
 
     this.savedChatKeys.forEach(chatKey => {
       const chat = this.localStorageService.getItem(chatKey) as Chat;
-      const filteredAssistantMessages = chat.messages.filter(message => message.role === 'assistant' && this.titleRegex.test(message.content));
-      const match = this.titleRegex.exec(filteredAssistantMessages[filteredAssistantMessages.length - 1].content);
-
-      const chatTitle = match ? match[1] : chatKey;
-
-      this.persistedChatOptions.push({label: chatTitle, value: chatKey});
+      if (chat) {
+        this.persistedChatOptions.push({label: this.extractChatTitle(chat), value: chatKey});
+      }
     });
   }
 
@@ -53,7 +50,10 @@ export class ChatService {
   saveNewChatKey() {
     this.savedChatKeys.push(this.currentChat.id);
     this.localStorageService.setItem(this.chatKeysKey, this.savedChatKeys);
-    this.persistedChatOptions.push({label: this.currentChat.messages[0]?.content.slice(0, 32) || this.currentChat.id, value: this.currentChat.id})
+    this.persistedChatOptions.push({
+      label: this.extractChatTitle(this.currentChat),
+      value: this.currentChat.id
+    })
   }
 
   saveCurrentChat() {
@@ -69,5 +69,12 @@ export class ChatService {
     this.localStorageService.setItem(this.chatKeysKey, this.savedChatKeys);
     this.persistedChatOptions = [];
     this.currentChat = new Chat();
+  }
+
+  extractChatTitle(chat: Chat): string {
+    const filteredAssistantMessages = chat.messages.filter(message => message.role === 'assistant' && this.titleRegex.test(message.content));
+    const match = this.titleRegex.exec(filteredAssistantMessages[filteredAssistantMessages.length - 1].content);
+
+    return match ? match[1] : chat.id;
   }
 }
