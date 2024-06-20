@@ -1,31 +1,43 @@
 <div class="chat-wrapper">
-    <div class="dropdown">
-        <button class="btn model-dropdown dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            <h5>{{ selectedModel.label }}</h5>
-        </button>
+  <div class="dropdown">
+    <button class="btn model-dropdown dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+            aria-expanded="false">
+      <h5>{{ selectedModel.label }}</h5>
+    </button>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li *ngFor="let modelOption of modelOptions">
-                <a class="dropdown-item"
-                   [class]="{active: selectedModel.value === modelOption.value}"
-                   (click)="selectedModel = modelOption">{{ modelOption.label }}</a>
-            </li>
-        </ul>
-    </div>
-    <div class="chat-messages-wrapper">
-        <div *ngFor="let message of messageHistory"
-             class="chat-message"
-             [class]="message.role + '-message'">
-            <div class="message-body"
-                 markdown
-                 [data]="message.content"></div>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li *ngFor="let modelOption of modelOptions">
+        <a class="dropdown-item"
+           [class]="{active: selectedModel.value === modelOption.value}"
+           (click)="selectedModel = modelOption">{{ modelOption.label }}</a>
+      </li>
+    </ul>
+  </div>
+  <div #scroll class="chat-messages-wrapper scroll-shadows">
+    <ng-container *ngFor="let message of messageHistory">
+      <div *ngIf="message.role  === 'user' || message.role === 'assistant'"
+        class="chat-message"
+        [class]="message.role + '-message'">
+        <div class="message-body"
+             markdown
+             [data]="message.content.match(titleRegex) ? message.content.substring(message.content.indexOf('\n') + 1) : message.content"></div>
+      </div>
+    </ng-container>
+    <div *ngIf="loading" class="chat-message assistant-message loading-message">
+      <div class="message-body">
+        <div class="loader">
+          <li class="ball"></li>
+          <li class="ball"></li>
+          <li class="ball"></li>
         </div>
-        <div class="messages-placeholder"
-             *ngIf="!(messageHistory.length > 0)">
-            Envie uma mensagem para iniciar a conversa.
-        </div>
+      </div>
     </div>
-    <div class="input-wrapper">
+    <div class="messages-placeholder"
+         *ngIf="!(messageHistory.length > 0)">
+      Envie uma mensagem para iniciar a conversa.
+    </div>
+  </div>
+  <div class="input-wrapper">
     <textarea class="prompt-input"
               type="text"
               placeholder="Digite..."
@@ -34,8 +46,8 @@
               [(ngModel)]="prompt"
               [disabled]="loading">
     </textarea>
-        <button class="btn btn-primary send-button" (click)="sendPrompt()" [disabled]="loading">
-            <i class="bi bi-send-fill"></i>
-        </button>
-    </div>
+    <button class="btn btn-primary send-button" (click)="sendPrompt()" [disabled]="loading">
+      <i class="bi bi-send-fill"></i>
+    </button>
+  </div>
 </div>
