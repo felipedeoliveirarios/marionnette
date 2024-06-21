@@ -1,0 +1,21 @@
+<div class="modal-backdrop" *ngIf="isVisible" (click)="close()">
+  <div class="card key-modal">
+    <div class="card-header">
+      <div class="card-title">Chave de API</div>
+      <a class="btn btn-close" (click)="close()"></a>
+    </div>
+    <div class="card-body">
+      <label class="key-label" for="api-key">Chave de API da OpenAI:</label>
+      <input class="key-input" type="text" name="api-key" id="api-key"
+             [(ngModel)]="apiKeyInputValue"
+             [placeholder]="hasKey ? '<Sem Alterações>' : 'Insira a chave'">
+      <span class="safety-info">
+        Sua chave de API será salva apenas no navegador, e poderá ser excluída manualmente clicando no botão abaixo.
+      </span>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-danger" (click)="delete()"><i class="bi bi-trash-fill"></i>Excluir</button>
+      <button class="btn btn-success" (click)="save()"><i class="bi bi-floppy-fill"></i>Salvar</button>
+    </div>
+  </div>
+</div>

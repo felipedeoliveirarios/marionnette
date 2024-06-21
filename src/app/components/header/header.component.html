@@ -1,14 +1,11 @@
 <nav class="navbar navbar-expand-lg nav">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">{{ Application.title }}</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+  <div class="header-wrapper">
+    <div class="header-brand">{{ Application.title }}</div>
+    <button class="btn btn-key"
+            [class]="{present: isKeyPresent}"
+            (click)="openApiKeyModal()">
+      <i class="bi bi-key"></i>
+      Chave de API
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- NAVBAR ITEMS GO HERE -->
-      </ul>
-    </div>
   </div>
 </nav>
