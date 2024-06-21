@@ -1,9 +1,14 @@
 export class Chat {
+  public static CHAT_IGNORE_FIELDS = ['id', 'usage'];
+
   id: string =  'chat_' + new Date().valueOf();
   messages: Message[] = [];
   model: string = '';
   stream: boolean = false;
+  usage: Usage = new Usage();
 }
+
+
 
 export class ChatCompletion {
   choices: Choice[] = [];

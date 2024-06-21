@@ -14,7 +14,7 @@ export class OpenAiService {
     {value: 'gpt-4o', label: 'GPT 4o'}
   ];
 
-  systemMessage = 'You are a helpful assistant. Start your answer by generating a title based on the user message send it on the first line between << >> symbols and add a line break after. After that, answer normally.'
+  systemMessage = 'You are a helpful assistant. Start your answer by generating a title based on the user message send it on the first line between << >> symbols and add a line break after. After that, answer normally, in the same language the user uses.'
 
   private apiUrl = 'https://api.openai.com/v1/chat/completions';
 
@@ -35,8 +35,8 @@ export class OpenAiService {
     });
 
     const chatData = JSON.stringify(chat, (key, value) => {
-      return (key === 'id') ? undefined : value;
-    })
+      return (Chat.CHAT_IGNORE_FIELDS.includes(key)) ? undefined : value;
+    });
 
     return this.http.post<ChatCompletion>(this.apiUrl, chatData, {headers: headers});
   }

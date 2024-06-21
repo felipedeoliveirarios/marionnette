@@ -1,7 +1,8 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
 import {OpenAiService} from "../../services/open-ai/open-ai.service";
 import {ChatCompletion, Message} from "./chat";
 import {ChatService} from "../../services/chat/chat.service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-chat',
@@ -9,7 +10,7 @@ import {ChatService} from "../../services/chat/chat.service";
   styleUrl: './chat.component.scss',
   preserveWhitespaces: true,
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
   prompt: string = '';
 
   loading: boolean = false;
@@ -35,6 +36,10 @@ export class ChatComponent implements OnInit{
     return this.chatService.titleRegex;
   }
 
+  get currentChatTitle() {
+    return this.chatService.currentChatTitle;
+  }
+
   constructor(private openAiService: OpenAiService,
               protected chatService: ChatService) {
   }
@@ -51,24 +56,35 @@ export class ChatComponent implements OnInit{
     userMessage.content = this.prompt;
     userMessage.role = 'user';
 
-    if (this.messageHistory.length == 0) {
-      this.chatService.saveNewChatKey();
-    }
+    const isNewChat = this.messageHistory.length == 0;
 
     this.currentChat.model = this.selectedModel.value;
     this.messageHistory.push(userMessage);
     this.scrollToBottom();
 
     this.loading = true;
-    this.openAiService.sendChat(this.currentChat).subscribe((data: ChatCompletion) => {
-      this.messageHistory.push(data.choices[0].message);
-      this.loading = false;
-      this.chatService.saveCurrentChat();
-      this.prompt = '';
-      this.scrollToBottom();
-    }, error => {
-      console.error('Error fetching data: ', error);
-    });
+    this.openAiService.sendChat(this.currentChat)
+      .pipe(finalize(() => {
+        this.loading = false;
+      }))
+      .subscribe((chatCompletion: ChatCompletion) => {
+        this.messageHistory.push(chatCompletion.choices[0].message);
+
+        this.currentChat.usage.prompt_tokens += chatCompletion.usage.prompt_tokens;
+        this.currentChat.usage.completion_tokens += chatCompletion.usage.completion_tokens;
+        this.currentChat.usage.total_tokens += chatCompletion.usage.total_tokens;
+
+        this.chatService.saveCurrentChat();
+
+        if (isNewChat) {
+          this.chatService.saveNewChatKey();
+        }
+
+        this.prompt = '';
+        this.scrollToBottom();
+      }, error => {
+        console.error('Error fetching data: ', error);
+      });
   }
 
   scrollToBottom(): void {

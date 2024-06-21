@@ -1,23 +1,49 @@
 <div class="chat-wrapper">
-  <div class="dropdown">
-    <button class="btn model-dropdown dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
-            aria-expanded="false">
-      <h5>{{ selectedModel.label }}</h5>
-    </button>
+  <div class="chat-title-section">
+    <div class="chat-title">
+      <div class="custom-tooltip">
+        <div class="custom-tooltip-trigger">
+          <i class="bi bi-info-circle"></i>
+        </div>
+        <div class="custom-tooltip-content">
+          <div class="custom-tooltip-title">Tokens</div>
+          <div class="custom-tooltip-field">
+            <span class="custom-tooltip-field-label">Prompt:</span>
+            <span class="custom-tooltip-field-value">{{ currentChat.usage.prompt_tokens }}</span>
+          </div>
+          <div class="custom-tooltip-field">
+            <span class="custom-tooltip-field-label">Completion:</span>
+            <span class="custom-tooltip-field-value">{{ currentChat.usage.completion_tokens }}</span>
+          </div>
+          <div class="custom-tooltip-field">
+            <span class="custom-tooltip-field-label">Total:</span>
+            <span class="custom-tooltip-field-value">{{ currentChat.usage.total_tokens }}</span>
+          </div>
+        </div>
+      </div>
+      <h5>{{ currentChatTitle }}</h5></div>
 
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li *ngFor="let modelOption of modelOptions">
-        <a class="dropdown-item"
-           [class]="{active: selectedModel.value === modelOption.value}"
-           (click)="selectedModel = modelOption">{{ modelOption.label }}</a>
-      </li>
-    </ul>
+    <div class="dropdown">
+      <button class="btn model-dropdown dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+              aria-expanded="false">
+        <h5>{{ selectedModel.label }}</h5>
+      </button>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li *ngFor="let modelOption of modelOptions">
+          <a class="dropdown-item"
+             [class]="{active: selectedModel.value === modelOption.value}"
+             (click)="selectedModel = modelOption">{{ modelOption.label }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
+
   <div #scroll class="chat-messages-wrapper scroll-shadows">
     <ng-container *ngFor="let message of messageHistory">
       <div *ngIf="message.role  === 'user' || message.role === 'assistant'"
-        class="chat-message"
-        [class]="message.role + '-message'">
+           class="chat-message"
+           [class]="message.role + '-message'">
         <div class="message-body"
              markdown
              [data]="message.content.match(titleRegex) ? message.content.substring(message.content.indexOf('\n') + 1) : message.content"></div>
