@@ -1,6 +1,26 @@
 <div class="chat-wrapper">
   <div class="chat-title-section">
     <div class="chat-title">
+      <div class="custom-tooltip">
+        <div class="custom-tooltip-trigger">
+          <i class="bi bi-info-circle"></i>
+        </div>
+        <div class="custom-tooltip-content">
+          <div class="custom-tooltip-title">Tokens</div>
+          <div class="custom-tooltip-field">
+            <span class="custom-tooltip-field-label">Prompt:</span>
+            <span class="custom-tooltip-field-value">{{ currentChat.usage.prompt_tokens }}</span>
+          </div>
+          <div class="custom-tooltip-field">
+            <span class="custom-tooltip-field-label">Completion:</span>
+            <span class="custom-tooltip-field-value">{{ currentChat.usage.completion_tokens }}</span>
+          </div>
+          <div class="custom-tooltip-field">
+            <span class="custom-tooltip-field-label">Total:</span>
+            <span class="custom-tooltip-field-value">{{ currentChat.usage.total_tokens }}</span>
+          </div>
+        </div>
+      </div>
       <h5>{{ currentChatTitle }}</h5></div>
 
     <div class="dropdown">
