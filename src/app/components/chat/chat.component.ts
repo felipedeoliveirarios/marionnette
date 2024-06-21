@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
 import {OpenAiService} from "../../services/open-ai/open-ai.service";
 import {ChatCompletion, Message} from "./chat";
 import {ChatService} from "../../services/chat/chat.service";
@@ -34,6 +34,10 @@ export class ChatComponent implements OnInit {
 
   get titleRegex() {
     return this.chatService.titleRegex;
+  }
+
+  get currentChatTitle() {
+    return this.chatService.currentChatTitle;
   }
 
   constructor(private openAiService: OpenAiService,

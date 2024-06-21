@@ -1,23 +1,29 @@
 <div class="chat-wrapper">
-  <div class="dropdown">
-    <button class="btn model-dropdown dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
-            aria-expanded="false">
-      <h5>{{ selectedModel.label }}</h5>
-    </button>
+  <div class="chat-title-section">
+    <div class="chat-title">
+      <h5>{{ currentChatTitle }}</h5></div>
 
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li *ngFor="let modelOption of modelOptions">
-        <a class="dropdown-item"
-           [class]="{active: selectedModel.value === modelOption.value}"
-           (click)="selectedModel = modelOption">{{ modelOption.label }}</a>
-      </li>
-    </ul>
+    <div class="dropdown">
+      <button class="btn model-dropdown dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+              aria-expanded="false">
+        <h5>{{ selectedModel.label }}</h5>
+      </button>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li *ngFor="let modelOption of modelOptions">
+          <a class="dropdown-item"
+             [class]="{active: selectedModel.value === modelOption.value}"
+             (click)="selectedModel = modelOption">{{ modelOption.label }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
+
   <div #scroll class="chat-messages-wrapper scroll-shadows">
     <ng-container *ngFor="let message of messageHistory">
       <div *ngIf="message.role  === 'user' || message.role === 'assistant'"
-        class="chat-message"
-        [class]="message.role + '-message'">
+           class="chat-message"
+           [class]="message.role + '-message'">
         <div class="message-body"
              markdown
              [data]="message.content.match(titleRegex) ? message.content.substring(message.content.indexOf('\n') + 1) : message.content"></div>

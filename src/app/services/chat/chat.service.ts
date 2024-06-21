@@ -9,6 +9,7 @@ export class ChatService {
   chatKeysKey = 'CHAT_KEYS'
 
   currentChat: Chat = new Chat();
+  currentChatTitle: string = 'Nova Conversa';
   savedChatKeys: string[] = [];
   persistedChatOptions: { label: string, value: string }[] = [];
 
@@ -39,12 +40,14 @@ export class ChatService {
   selectChat(chatKey: string) {
     if (this.savedChatKeys.includes(chatKey)) {
       this.currentChat = this.localStorageService.getItem(chatKey) as Chat;
+      this.currentChatTitle = this.persistedChatOptions.find(option => option.value === chatKey)?.label || 'Sem Título';
       this.chatChanged.emit();
     }
   }
 
   createNewChat() {
     this.currentChat = new Chat();
+    this.currentChatTitle = 'Nova Conversa';
   }
 
   saveNewChatKey() {
@@ -68,7 +71,8 @@ export class ChatService {
     this.savedChatKeys = [];
     this.localStorageService.setItem(this.chatKeysKey, this.savedChatKeys);
     this.persistedChatOptions = [];
-    this.currentChat = new Chat();
+
+    this.createNewChat();
   }
 
   extractChatTitle(chat: Chat): string {
