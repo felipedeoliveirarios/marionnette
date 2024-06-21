@@ -20,6 +20,10 @@ export class ChatComponent implements OnInit {
   @ViewChild('scroll', {static: true})
   scroll: any;
 
+  get hasApiKey() {
+    return this.openAiService.isKeyPresent();
+  }
+
   get messageHistory() {
     return this.chatService.currentChat.messages;
   }

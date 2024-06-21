@@ -60,7 +60,7 @@
     </div>
     <div class="messages-placeholder"
          *ngIf="!(messageHistory.length > 0)">
-      Envie uma mensagem para iniciar a conversa.
+      {{hasApiKey ? 'Envie uma mensagem para iniciar a conversa' : 'Configure sua chave de API para começar'}}
     </div>
   </div>
   <div class="input-wrapper">
@@ -70,9 +70,9 @@
               rows="1"
               style="resize: none;"
               [(ngModel)]="prompt"
-              [disabled]="loading">
+              [disabled]="loading || !hasApiKey">
     </textarea>
-    <button class="btn btn-primary send-button" (click)="sendPrompt()" [disabled]="loading">
+    <button class="btn btn-primary send-button" (click)="sendPrompt()" [disabled]="loading || !hasApiKey">
       <i class="bi bi-send-fill"></i>
     </button>
   </div>
