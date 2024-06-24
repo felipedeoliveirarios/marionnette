@@ -69,7 +69,9 @@
               placeholder="Digite..."
               rows="1"
               style="resize: none;"
+              appTextareaAutoresize
               [(ngModel)]="prompt"
+              (keydown.enter)="sendPrompt()"
               [disabled]="loading || !hasApiKey">
     </textarea>
     <button class="btn btn-primary send-button" (click)="sendPrompt()" [disabled]="loading || !hasApiKey">
