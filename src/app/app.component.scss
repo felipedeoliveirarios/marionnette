@@ -11,3 +11,20 @@
     padding-bottom: 1rem;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  :host {
+
+    .body-wrapper {
+      app-sidebar {
+        z-index: 9999;
+
+        position: fixed;
+
+        app-chat {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

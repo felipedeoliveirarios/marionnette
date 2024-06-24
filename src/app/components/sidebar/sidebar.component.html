@@ -1,5 +1,12 @@
-<div class="sidebar-wrapper" style="width: 280px">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+<div class="sidebar-bg" [class]="{visible: visible}" (click)="hide()">
+  <div class="sidebar-wrapper" (click)="$event.stopPropagation()">
+  <button class="btn key-button"
+          [class]="{present: isKeyPresent}"
+          (click)="openApiKeyModal()">
+    <i class="bi bi-key"></i>
+    Chave de API
+  </button>
+  <a href="/" class="d-flex align-items-center text-white text-decoration-none sidebar-chats-title">
     <span class="fs-4">Conversas</span>
   </a>
   <hr>
@@ -17,4 +24,5 @@
     <b class="btn btn-success" (click)="createNewChat()">Nova Conversa</b>
     <b class="btn btn-danger" (click)="clearChatHistory()">Limpar Histórico</b>
   </div>
+</div>
 </div>
