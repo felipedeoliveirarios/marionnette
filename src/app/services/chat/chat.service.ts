@@ -76,7 +76,10 @@ export class ChatService {
   }
 
   extractChatTitle(chat: Chat): string {
-    const filteredAssistantMessages = chat.messages.filter(message => message.role === 'assistant' && this.titleRegex.test(message.content));
+    const filteredAssistantMessages = chat.messages.filter(message => message?.content && message.role === 'assistant' && this.titleRegex.test(message.content));
+
+    if (!filteredAssistantMessages.length) return chat.id;
+
     const match = this.titleRegex.exec(filteredAssistantMessages[filteredAssistantMessages.length - 1].content);
 
     return match ? match[1] : chat.id;
