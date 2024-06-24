@@ -1,28 +1,32 @@
 <div class="sidebar-bg" [class]="{visible: visible}" (click)="hide()">
   <div class="sidebar-wrapper" (click)="$event.stopPropagation()">
-  <button class="btn key-button"
-          [class]="{present: isKeyPresent}"
-          (click)="openApiKeyModal()">
-    <i class="bi bi-key"></i>
-    Chave de API
-  </button>
-  <a href="/" class="d-flex align-items-center text-white text-decoration-none sidebar-chats-title">
-    <span class="fs-4">Conversas</span>
-  </a>
-  <hr>
-  <div class="chat-options-wrapper">
-    <ul class="nav nav-pills flex-column mb-auto chat-options">
-      <li *ngFor="let chatOption of chatOptions" class="chat-option nav-item">
-        <a (click)="selectChat(chatOption.value)" class="nav-link"
-           [class]="{active: chatOption.value === chatService.currentChat.id}">{{ chatOption.label }}</a>
-      </li>
-      <li *ngIf="chatOptions.length === 0" class="no-chats-message">Nenhuma conversa no histórico</li>
-    </ul>
+    <button class="btn key-button"
+            [class]="{present: isKeyPresent}"
+            (click)="openApiKeyModal()">
+      <i class="bi bi-key"></i>
+      Chave de API
+    </button>
+    <a href="/" class="d-flex align-items-center text-white text-decoration-none sidebar-chats-title">
+      <span class="fs-4">Conversas</span>
+    </a>
+    <hr>
+    <div class="chat-options-wrapper">
+      <ul class="nav nav-pills flex-column mb-auto chat-options">
+        <li *ngFor="let chatOption of chatOptions" class="chat-option nav-item">
+          <a (click)="selectChat(chatOption.value)" class="nav-link"
+             [class]="{active: chatOption.value === chatService.currentChat.id}">{{ chatOption.label }}</a>
+        </li>
+        <li *ngIf="chatOptions.length === 0" class="no-chats-message">Nenhuma conversa no histórico</li>
+      </ul>
+    </div>
+    <hr>
+    <div class="d-flex flex-column gap-2 history-btn-wrapper">
+      <b class="btn btn-success" (click)="createNewChat()">Nova Conversa</b>
+      <b class="btn btn-danger" (click)="clearChatHistory()">Limpar Histórico</b>
+    </div>
+    <div class="credits">
+      <div>Feito por Felipe Rios</div>
+      <a href="https://github.com/felipedeoliveirarios/marionnette"><i class="bi bi-github"></i></a>
+    </div>
   </div>
-  <hr>
-  <div class="d-flex flex-column gap-2 history-btn-wrapper">
-    <b class="btn btn-success" (click)="createNewChat()">Nova Conversa</b>
-    <b class="btn btn-danger" (click)="clearChatHistory()">Limpar Histórico</b>
-  </div>
-</div>
 </div>
