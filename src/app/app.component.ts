@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {OpenAiService} from "./services/open-ai/open-ai.service";
+import {SidebarService} from "./services/sidebar/sidebar.service";
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,13 @@ import {OpenAiService} from "./services/open-ai/open-ai.service";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
+  constructor(private sidebarService: SidebarService) {
+  }
+
+  get visible() {
+    return this.sidebarService.visible;
+  }
 }
 
 export class Application {

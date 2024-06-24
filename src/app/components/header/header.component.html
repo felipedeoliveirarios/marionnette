@@ -1,11 +1,12 @@
-<nav class="navbar navbar-expand-lg nav">
+<div class="navbar navbar-expand-lg nav">
   <div class="header-wrapper">
     <div class="header-brand">{{ Application.title }}</div>
-    <button class="btn btn-key"
+    <button class="btn menu-button" (click)="openSidebar()"><i class="bi bi-list"></i></button>
+    <button class="btn key-button"
             [class]="{present: isKeyPresent}"
             (click)="openApiKeyModal()">
       <i class="bi bi-key"></i>
       Chave de API
     </button>
   </div>
-</nav>
+</div>
