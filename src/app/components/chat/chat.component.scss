@@ -199,6 +199,7 @@
       margin-top: auto;
       display: flex;
       flex-flow: row nowrap;
+      align-items: center;
       width: 100%;
       gap: 16px;
       align-self: flex-end;
@@ -209,7 +210,8 @@
         background-color: var(--bs-tertiary-bg);
         border-radius: 16px;
         border: none;
-        height: auto;
+        line-height: 1.5rem;
+        height: fit-content;
 
         &:focus-visible {
           outline: 2px solid #3d0a91;

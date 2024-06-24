@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
 import {Chat, ChatCompletion, Message} from "../../components/chat/chat";
 import {Observable} from "rxjs";
 import {LocalStorageService} from "../local-storage/local-storage.service";

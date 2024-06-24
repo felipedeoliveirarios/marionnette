@@ -10,6 +10,7 @@ import {ChatComponent} from './components/chat/chat.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {MarkdownComponent, provideMarkdown} from "ngx-markdown";
 import {KeyModalComponent} from './components/key-modal/key-modal.component';
+import { TextareaAutoresizeDirective } from './directives/textarea-autoresize.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {KeyModalComponent} from './components/key-modal/key-modal.component';
     HeaderComponent,
     ChatComponent,
     SidebarComponent,
-    KeyModalComponent
+    KeyModalComponent,
+    TextareaAutoresizeDirective
   ],
   imports: [
     BrowserModule,
